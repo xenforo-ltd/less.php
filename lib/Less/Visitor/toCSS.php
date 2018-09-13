@@ -56,11 +56,11 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing{
 		return $mediaNode;
 	}
 
-	public function visitDirective( $directiveNode ){
-		if( isset($directiveNode->currentFileInfo['reference']) && (!property_exists($directiveNode,'isReferenced') || !$directiveNode->isReferenced) ){
-			return array();
-		}
+	public function visitDirective( $directiveNode, &$visitDeeper ){
 		if( $directiveNode->name === '@charset' ){
+			if( isset($directiveNode->currentFileInfo['reference']) && (!property_exists($directiveNode,'isReferenced') || !$directiveNode->isReferenced) ){
+				return array();
+			}
 			// Only output the debug info together with subsequent @charset definitions
 			// a comment (or @media statement) before the actual @charset directive would
 			// be considered illegal css as it has to be on the first line
@@ -77,7 +77,46 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing{
 			}
 			$this->charset = true;
 		}
+		if ( $directiveNode->rules ){
+			$this->_mergeRules($directiveNode->rules[0]->rules);
+
+			$directiveNode->accept($this);
+			
+			$visitDeeper = false;
+
+			if ( $directiveNode->getIsReferenced() ){
+				return $directiveNode;
+			}
+			if ( !$directiveNode->rules ){
+				return array();
+			}
+			if ( $this->hasVisibleChild($directiveNode) ){
+				$directiveNode->markReferenced();
+				return $directiveNode;
+			}
+
+			return array();
+		} else if ( !$directiveNode->getIsReferenced() ){
+			return array();
+		}
+		
 		return $directiveNode;
+	}
+
+	protected function hasVisibleChild($directiveNode)
+	{
+		$bodyRules = $directiveNode->rules;
+		if ( count($bodyRules) == 1 && !$bodyRules[0]->paths ){
+			$bodyRules = $bodyRules[0]->rules;
+		}
+
+		foreach ($bodyRules AS $rule){
+			if ( !empty($rule->isReferenced) || (method_exists($rule, 'getIsReferenced') && $rule->getIsReferenced()) ){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public function checkPropertiesInRoot( $rulesetNode ){

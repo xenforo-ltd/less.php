@@ -62,7 +62,13 @@ class Less_Tree_Selector extends Less_Tree{
 		$newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
 		return $newSelector;
 	}
-
+	
+	public function createEmptySelectors(){
+		$el = new Less_Tree_Element('','&', $this->index, $this->currentFileInfo );
+		$sels = array( new Less_Tree_Selector(array($el), array(), null, $this->index, $this->currentFileInfo) );
+		$sels[0]->mediaEmpty = true;
+        return $sels;
+	}
 
 	public function match( $other ){
 

@@ -6,7 +6,7 @@
  * @package Less
  * @subpackage tree
  */
-class Less_Tree_Media extends Less_Tree{
+class Less_Tree_Media extends Less_Tree_Directive {
 
 	public $features;
 	public $rules;
@@ -81,10 +81,8 @@ class Less_Tree_Media extends Less_Tree{
 	}
 
 	public function emptySelectors(){
-		$el = new Less_Tree_Element('','&', $this->index, $this->currentFileInfo );
-		$sels = array( new Less_Tree_Selector(array($el), array(), null, $this->index, $this->currentFileInfo) );
-		$sels[0]->mediaEmpty = true;
-        return $sels;
+    	$sel = new Less_Tree_Selector(array(), $this->index, $this->currentFileInfo);
+    	return $sel->createEmptySelectors();
 	}
 
 	public function markReferenced(){
