@@ -104,7 +104,7 @@ class Less_Tree_Import extends Less_Tree{
 		if ($this->path instanceof Less_Tree_Quoted) {
 			$path = $this->path->value;
 			$path = ( isset($this->css) || preg_match('/(\.[a-z]*$)|([\?;].*)$/',$path)) ? $path : $path . '.less';
-		} else if ($this->path instanceof Less_Tree_URL) {
+		} else if ($this->path instanceof Less_Tree_Url) {
 			$path = $this->path->value->value;
 		}else{
 			return null;
@@ -126,7 +126,7 @@ class Less_Tree_Import extends Less_Tree{
 		}
 
 
-		if( !($path instanceof Less_Tree_URL) ){
+		if( !($path instanceof Less_Tree_Url) ){
 			if( $rootpath ){
 				$pathValue = $path->value;
 				// Add the base path if the import is relative
