@@ -110,7 +110,7 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 					$currentChunkStartIndex = $this->parserCurrentIndex;
 					for ($this->parserCurrentIndex = $this->parserCurrentIndex + 1; $this->parserCurrentIndex < $this->input_len; $this->parserCurrentIndex++) {
 						$cc2 = $this->CharCode($this->parserCurrentIndex);
-						if ($cc2 > 96) { continue 3; }
+						if ($cc2 > 96) { continue; }
 						if ($cc2 == $cc) { $matched = 1; break; }
 						if ($cc2 == 92) {        // \
 							if ($this->parserCurrentIndex == $this->input_len - 1) {
@@ -138,7 +138,7 @@ class Less_Exception_Chunk extends Less_Exception_Parser{
 						for ($this->parserCurrentIndex = $this->parserCurrentIndex + 2; $this->parserCurrentIndex < $this->input_len - 1; $this->parserCurrentIndex++) {
 							$cc2 = $this->CharCode($this->parserCurrentIndex);
 							if ($cc2 == 125) { $lastMultiCommentEndBrace = $this->parserCurrentIndex; }
-							if ($cc2 != 42) { continue 3; }
+							if ($cc2 != 42) { continue; }
 							if ($this->CharCode($this->parserCurrentIndex+1) == 47) { break; }
 						}
 						if ($this->parserCurrentIndex == $this->input_len - 1) {
