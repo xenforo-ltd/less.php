@@ -8,13 +8,13 @@
  */
 class Less_Visitor_extendFinder extends Less_Visitor{
 
-	public $contexts = [];
+	public $contexts = array();
 	public $allExtendsStack;
 	public $foundExtends;
 
 	public function __construct(){
-		$this->contexts = [];
-		$this->allExtendsStack = [[]];
+		$this->contexts = array();
+		$this->allExtendsStack = array(array());
 		parent::__construct();
 	}
 
@@ -41,7 +41,7 @@ class Less_Visitor_extendFinder extends Less_Visitor{
 			return;
 		}
 
-		$allSelectorsExtendList = [];
+		$allSelectorsExtendList = array();
 
 		// get &:extend(.a); rules which apply to all selectors in this ruleset
 		if( $rulesetNode->rules ){
@@ -93,7 +93,7 @@ class Less_Visitor_extendFinder extends Less_Visitor{
 	}
 
     public function visitMedia( $mediaNode ){
-		$mediaNode->allExtends = [];
+		$mediaNode->allExtends = array();
 		$this->allExtendsStack[] =& $mediaNode->allExtends;
 	}
 
@@ -102,7 +102,7 @@ class Less_Visitor_extendFinder extends Less_Visitor{
 	}
 
     public function visitDirective( $directiveNode ){
-		$directiveNode->allExtends = [];
+		$directiveNode->allExtends = array();
 		$this->allExtendsStack[] =& $directiveNode->allExtends;
 	}
 

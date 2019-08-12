@@ -13,7 +13,7 @@ class Less_Output{
 	 *
 	 * @var string
 	 */
-	protected $strs = [];
+	protected $strs = array();
 
 	/**
 	 * Adds a chunk to the stack

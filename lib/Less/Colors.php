@@ -8,7 +8,7 @@
  */
 class Less_Colors {
 
-	public static $colors = [
+	public static $colors = array(
 			'aliceblue'=>'#f0f8ff',
 			'antiquewhite'=>'#faebd7',
 			'aqua'=>'#00ffff',
@@ -156,7 +156,7 @@ class Less_Colors {
 			'whitesmoke'=>'#f5f5f5',
 			'yellow'=>'#ffff00',
 			'yellowgreen'=>'#9acd32'
-	];
+		);
 
 	public static function hasOwnProperty($color) {
 		return isset(self::$colors[$color]);

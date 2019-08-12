@@ -21,7 +21,7 @@ class Less_Tree_Value extends Less_Tree{
 
 	public function compile($env){
 
-		$ret = [];
+		$ret = array();
 		$i = 0;
 		foreach($this->value as $i => $v){
 			$ret[] = $v->compile($env);

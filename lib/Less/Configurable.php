@@ -13,14 +13,14 @@ abstract class Less_Configurable {
 	 *
 	 * @var array
 	 */
-	protected $options = [];
+	protected $options = array();
 
 	/**
 	 * Array of default options
 	 *
 	 * @var array
 	 */
-	protected $defaultOptions = [];
+	protected $defaultOptions = array();
 
 
 	/**

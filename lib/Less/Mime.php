@@ -10,7 +10,7 @@ class Less_Mime{
 
 	// this map is intentionally incomplete
 	// if you want more, install 'mime' dep
-	static $_types = [
+	static $_types = array(
 	        '.htm' => 'text/html',
 	        '.html'=> 'text/html',
 	        '.gif' => 'image/gif',
@@ -22,7 +22,7 @@ class Less_Mime{
 	        '.eot' => 'application/vnd.ms-fontobject',
 	        '.woff' => 'application/x-font-woff',
 	        '.svg' => 'image/svg+xml',
-	];
+	        );
 
 	public static function lookup( $filepath ){
 		$parts = explode('.',$filepath);

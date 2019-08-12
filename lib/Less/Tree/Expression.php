@@ -8,7 +8,7 @@
  */
 class Less_Tree_Expression extends Less_Tree{
 
-	public $value = [];
+	public $value = array();
 	public $parens = false;
 	public $parensInOp = false;
 	public $type = 'Expression';
@@ -37,7 +37,7 @@ class Less_Tree_Expression extends Less_Tree{
 
 			if( $count > 1 ){
 
-				$ret = [];
+				$ret = array();
 				foreach($this->value as $e){
 					$ret[] = $e->compile($env);
 				}
@@ -84,7 +84,7 @@ class Less_Tree_Expression extends Less_Tree{
     public function throwAwayComments() {
 
 		if( is_array($this->value) ){
-			$new_value = [];
+			$new_value = array();
 			foreach($this->value as $v){
 				if( $v instanceof Less_Tree_Comment ){
 					continue;

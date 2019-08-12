@@ -25,17 +25,17 @@ class Less_Environment{
 	/**
 	 * @var array
 	 */
-	public $frames = [];
+	public $frames = array();
 
 	/**
 	 * @var array
 	 */
-	public $mediaBlocks = [];
+	public $mediaBlocks = array();
 
 	/**
 	 * @var array
 	 */
-	public $mediaPath = [];
+	public $mediaPath = array();
 
 	public static $parensStack = 0;
 
@@ -50,7 +50,7 @@ class Less_Environment{
 	/**
 	 * @var array
 	 */
-	public $functions = [];
+	public $functions = array();
 
 
 	public function Init(){
@@ -62,7 +62,7 @@ class Less_Environment{
 
 		if( Less_Parser::$options['compress'] ){
 
-			Less_Environment::$_outputMap = [
+			Less_Environment::$_outputMap = array(
 				','	=> ',',
 				': ' => ':',
 				''  => '',
@@ -74,11 +74,11 @@ class Less_Environment{
 				'|' => '|',
 		        '^' => '^',
 		        '^^' => '^^'
-			];
+			);
 
 		}else{
 
-			Less_Environment::$_outputMap = [
+			Less_Environment::$_outputMap = array(
 				','	=> ', ',
 				': ' => ': ',
 				''  => '',
@@ -90,13 +90,13 @@ class Less_Environment{
 				'|' => '|',
 		        '^' => ' ^ ',
 		        '^^' => ' ^^ '
-			];
+			);
 
 		}
 	}
 
 
-	public function copyEvalEnv($frames = []){
+	public function copyEvalEnv($frames = array() ){
 		$new_env = new Less_Environment();
 		$new_env->frames = $frames;
 		return $new_env;
@@ -124,7 +124,7 @@ class Less_Environment{
 		$segments = explode('/',$path);
 		$segments = array_reverse($segments);
 
-		$path = [];
+		$path = array();
 		$path_len = 0;
 
 		while( $segments ){

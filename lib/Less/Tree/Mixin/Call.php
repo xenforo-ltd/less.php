@@ -31,16 +31,16 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 
 	public function compile($env){
 
-		$rules = [];
+		$rules = array();
 		$match = false;
 		$isOneFound = false;
-		$candidates = [];
+		$candidates = array();
 		$defaultUsed = false;
-		$conditionResult = [];
+		$conditionResult = array();
 
-		$args = [];
+		$args = array();
 		foreach($this->arguments as $a){
-			$args[] = ['name' => $a['name'], 'value' => $a['value']->compile($env)];
+			$args[] = array('name'=> $a['name'], 'value' => $a['value']->compile($env) );
 		}
 
 		foreach($env->frames as $frame){
@@ -71,7 +71,7 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 
 				if( $mixin->matchArgs($args, $env) ){
 
-					$candidate = ['mixin' => $mixin, 'group' => $defNone];
+					$candidate = array('mixin' => $mixin, 'group' => $defNone);
 
 					if( $mixin instanceof Less_Tree_Ruleset ){
 
@@ -97,7 +97,7 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 			Less_Tree_DefaultFunc::reset();
 
 
-			$count = [0, 0, 0];
+			$count = array(0, 0, 0);
 			for( $m = 0; $m < count($candidates); $m++ ){
 				$count[ $candidates[$m]['group'] ]++;
 			}
@@ -121,7 +121,7 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 					try{
 						$mixin = $candidates[$m]['mixin'];
 						if( !($mixin instanceof Less_Tree_Mixin_Definition) ){
-							$mixin = new Less_Tree_Mixin_Definition('', [], $mixin->rules, null, false);
+							$mixin = new Less_Tree_Mixin_Definition('', array(), $mixin->rules, null, false);
 							$mixin->originalRuleset = $mixins[$m]->originalRuleset;
 						}
 						$rules = array_merge($rules, $mixin->evalCall($env, $args, $this->important)->rules);
@@ -156,7 +156,7 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 	 *
 	 */
 	private function Format($args){
-		$message = [];
+		$message = array();
 		if( $args ){
 			foreach($args as $a){
 				$argValue = '';

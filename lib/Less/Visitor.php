@@ -8,8 +8,8 @@
  */
 class Less_Visitor{
 
-	protected $methods = [];
-	protected $_visitFnCache = [];
+	protected $methods = array();
+	protected $_visitFnCache = array();
 
 	public function __construct(){
 		$this->_visitFnCache = get_class_methods(get_class($this));
@@ -42,7 +42,7 @@ class Less_Visitor{
 
 	public function visitArray( $nodes ){
 
-		array_map( [$this,'visitObj'], $nodes);
+		array_map( array($this,'visitObj'), $nodes);
 		return $nodes;
 	}
 }

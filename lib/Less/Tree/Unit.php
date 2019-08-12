@@ -8,12 +8,12 @@
  */
 class Less_Tree_Unit extends Less_Tree{
 
-	var $numerator = [];
-	var $denominator = [];
+	var $numerator = array();
+	var $denominator = array();
 	public $backupUnit;
 	public $type = 'Unit';
 
-    public function __construct($numerator = [], $denominator = [], $backupUnit = null ){
+    public function __construct($numerator = array(), $denominator = array(), $backupUnit = null ){
 		$this->numerator = $numerator;
 		$this->denominator = $denominator;
 		$this->backupUnit = $backupUnit;
@@ -80,7 +80,7 @@ class Less_Tree_Unit extends Less_Tree{
 
 
     public function usedUnits(){
-		$result = [];
+		$result = array();
 
 		foreach(Less_Tree_UnitConversions::$groups as $groupName){
 			$group = Less_Tree_UnitConversions::${$groupName};
@@ -102,7 +102,7 @@ class Less_Tree_Unit extends Less_Tree{
 	}
 
     public function cancel(){
-		$counter = [];
+		$counter = array();
 		$backup = null;
 
 		foreach($this->numerator as $atomicUnit){
@@ -119,8 +119,8 @@ class Less_Tree_Unit extends Less_Tree{
 			$counter[$atomicUnit] = ( isset($counter[$atomicUnit]) ? $counter[$atomicUnit] : 0) - 1;
 		}
 
-		$this->numerator = [];
-		$this->denominator = [];
+		$this->numerator = array();
+		$this->denominator = array();
 
 		foreach($counter as $atomicUnit => $count){
 			if( $count > 0 ){

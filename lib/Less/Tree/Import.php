@@ -35,7 +35,7 @@ class Less_Tree_Import extends Less_Tree{
 		$this->currentFileInfo = $currentFileInfo;
 
 		if( is_array($options) ){
-			$this->options += ['inline' =>false];
+			$this->options += array('inline'=>false);
 
 			if( isset($this->options['less']) || $this->options['inline'] ){
 				$this->css = !isset($this->options['less']) || !$this->options['less'] || $this->options['inline'];
@@ -165,7 +165,7 @@ class Less_Tree_Import extends Less_Tree{
 
 		//import once
 		if( $evald->skip( $full_path, $env) ){
-			return [];
+			return array();
 		}
 
 		if( $this->options['inline'] ){
@@ -173,18 +173,18 @@ class Less_Tree_Import extends Less_Tree{
 			//$contents = new Less_Tree_Anonymous($this->root, 0, array('filename'=>$this->importedFilename), true );
 
 			Less_Parser::AddParsedFile($full_path);
-			$contents = new Less_Tree_Anonymous( file_get_contents($full_path), 0, [], true );
+			$contents = new Less_Tree_Anonymous( file_get_contents($full_path), 0, array(), true );
 
 			if( $this->features ){
-				return new Less_Tree_Media( [$contents], $this->features->value );
+				return new Less_Tree_Media( array($contents), $this->features->value );
 			}
 
-			return [$contents];
+			return array( $contents );
 		}
 
 		// optional (need to be before "CSS" to support optional CSS imports. CSS should be checked only if empty($this->currentFileInfo))
 		if( isset($this->options['optional']) && $this->options['optional'] && !file_exists($full_path) && (!$evald->css || !empty($this->currentFileInfo))) {
-			return [];
+			return array();
 		}
 
 
@@ -210,7 +210,7 @@ class Less_Tree_Import extends Less_Tree{
 
 		if( $evald_path ){
 
-			$import_dirs = [];
+			$import_dirs = array();
 
 			if( Less_Environment::isPathRelative($evald_path) ){
 				//if the path is relative, the file should be in the current directory
@@ -234,7 +234,7 @@ class Less_Tree_Import extends Less_Tree{
 					list($path, $uri) = call_user_func($rooturi, $evald_path);
 					if( is_string($path) ){
 						$full_path = $path;
-						return [$full_path, $uri];
+						return array( $full_path, $uri );
 					}
 				}elseif( !empty($rootpath) ){
 
@@ -243,11 +243,11 @@ class Less_Tree_Import extends Less_Tree{
 					if( file_exists($path) ){
 						$full_path = Less_Environment::normalizePath($path);
 						$uri = Less_Environment::normalizePath(dirname($rooturi.$evald_path));
-						return [$full_path, $uri];
+						return array( $full_path, $uri );
 					} elseif( file_exists($path.'.less') ){
 						$full_path = Less_Environment::normalizePath($path.'.less');
 						$uri = Less_Environment::normalizePath(dirname($rooturi.$evald_path.'.less'));
-						return [$full_path, $uri];
+						return array( $full_path, $uri );
 					}
 				}
 			}
@@ -275,7 +275,7 @@ class Less_Tree_Import extends Less_Tree{
 		$root = $parser->parseFile($full_path, $uri, true);
 
 
-		$ruleset = new Less_Tree_Ruleset([], $root->rules );
+		$ruleset = new Less_Tree_Ruleset(array(), $root->rules );
 		$ruleset->evalImports($import_env);
 
 		return $this->features ? new Less_Tree_Media($ruleset->rules, $this->features->value) : $ruleset->rules;
