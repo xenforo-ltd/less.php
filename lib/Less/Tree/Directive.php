@@ -24,9 +24,9 @@ class Less_Tree_Directive extends Less_Tree{
 			if( is_array($rules) ){
 				$this->rules = $rules;
 			} else {
-				$this->rules = array($rules);
+				$this->rules = [$rules];
 
-				$sel = new Less_Tree_Selector(array(), $this->index, $this->currentFileInfo);
+				$sel = new Less_Tree_Selector([], $this->index, $this->currentFileInfo);
 				$this->rules[0]->selectors = $sel->createEmptySelectors();
 			}
 			foreach ($this->rules AS $rule){
@@ -76,8 +76,8 @@ class Less_Tree_Directive extends Less_Tree{
 		$mediaPathBackup = $env->mediaPath;
 		$mediaBlocksBackup = $env->mediaBlocks;
 
-		$env->mediaPath = array();
-		$env->mediaBlocks = array();
+		$env->mediaPath = [];
+		$env->mediaBlocks = [];
 
 		if( $value ){
 			$value = $value->compile($env);

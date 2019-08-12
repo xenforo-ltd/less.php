@@ -34,7 +34,7 @@ class Less_Cache{
 	 * @param array $modify_vars Array of variables
 	 * @return string Name of the css file
 	 */
-	public static function Get( $less_files, $parser_options = array(), $modify_vars = array() ){
+	public static function Get($less_files, $parser_options = [], $modify_vars = []){
 
 
 		//check $cache_dir
@@ -75,7 +75,7 @@ class Less_Cache{
 				file_put_contents($vars_file, $lessvars);
 			}
 
-			$less_files += array($vars_file => '/');
+			$less_files += [$vars_file => '/'];
 		}
 
 
@@ -137,12 +137,12 @@ class Less_Cache{
 	 * @param array $modify_vars Array of variables
 	 * @return string Name of the css file
 	 */
-	public static function Regen( $less_files, $parser_options = array(), $modify_vars = array() ){
+	public static function Regen($less_files, $parser_options = [], $modify_vars = []){
 		$parser_options['use_cache'] = false;
 		return self::Get( $less_files, $parser_options, $modify_vars );
 	}
 
-	public static function Cache( &$less_files, $parser_options = array() ){
+	public static function Cache( &$less_files, $parser_options = []){
 
 
 		// get less.php if it exists
@@ -196,7 +196,7 @@ class Less_Cache{
 	private static function CompiledName( $files, $extrahash ){
 
 		//save the file list
-		$temp = array(Less_Version::cache_version);
+		$temp = [Less_Version::cache_version];
 		foreach($files as $file){
 			$temp[] = filemtime($file)."\t".filesize($file)."\t".$file;
 		}
@@ -247,7 +247,7 @@ class Less_Cache{
 
 		// only remove files with extensions created by less.php
 		// css files removed based on the list files
-		$remove_types = array('lesscache'=>1,'list'=>1,'less'=>1,'map'=>1);
+		$remove_types = ['lesscache' =>1, 'list' =>1, 'less' =>1, 'map' =>1];
 
 		$files = scandir(Less_Cache::$cache_dir);
 		if( !$files ){

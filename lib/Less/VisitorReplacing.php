@@ -36,7 +36,7 @@ class Less_VisitorReplacing extends Less_Visitor{
 
 	public function visitArray( $nodes ){
 
-		$newNodes = array();
+		$newNodes = [];
 		foreach($nodes as $node){
 			$evald = $this->visitObj($node);
 			if( $evald ){

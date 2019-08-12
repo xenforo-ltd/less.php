@@ -17,11 +17,11 @@ class lessc {
 	static public $VERSION = Less_Version::less_version;
 
 	public $importDir = '';
-	protected $allParsedFiles = array();
-	protected $libFunctions = array();
-	protected $registeredVars = array();
+	protected $allParsedFiles = [];
+	protected $libFunctions = [];
+	protected $registeredVars = [];
 	private $formatterName;
-	private $options = array();
+	private $options = [];
 
 	public function __construct( $lessc=null, $sourceName=null ) {}
 
@@ -72,7 +72,7 @@ class lessc {
 		$this->options[$name] = $value;
 	}
 	
-	public function parse( $buffer, $presets = array() ) {
+	public function parse( $buffer, $presets = []) {
 
 		$this->setVariables( $presets );
 
@@ -90,7 +90,7 @@ class lessc {
 	}
 
 	protected function getOptions() {
-		$options = array( 'relativeUrls'=>false );
+		$options = ['relativeUrls' =>false];
 		switch( $this->formatterName ) {
 			case 'compressed':
 				$options['compress'] = true;
@@ -105,7 +105,7 @@ class lessc {
 
 	protected function getImportDirs() {
 		$dirs_ = (array)$this->importDir;
-		$dirs = array();
+		$dirs = [];
 		foreach ( $dirs_ as $dir ) {
 			$dirs[$dir] = '';
 		}
@@ -117,7 +117,7 @@ class lessc {
 		$oldImport = $this->importDir;
 		$this->importDir = (array)$this->importDir;
 
-		$this->allParsedFiles = array();
+		$this->allParsedFiles = [];
 
 		$parser = new Less_Parser( $this->getOptions() );
 		$parser->SetImportDirs( $this->getImportDirs() );
@@ -152,7 +152,7 @@ class lessc {
 		$this->importDir = (array)$this->importDir;
 		$this->importDir[] = Less_Parser::AbsPath( $pi['dirname'] ).'/';
 
-		$this->allParsedFiles = array();
+		$this->allParsedFiles = [];
 		$this->addParsedFile( $fname );
 
 		$parser = new Less_Parser( $this->getOptions() );
@@ -239,7 +239,7 @@ class lessc {
 
 		if ( $root !== null ) {
 			// If we have a root value which means we should rebuild.
-			$out = array();
+			$out = [];
 			$out['root'] = $root;
 			$out['compiled'] = $this->compileFile($root);
 			$out['files'] = $this->allParsedFiles();
