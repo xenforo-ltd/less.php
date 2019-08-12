@@ -2696,8 +2696,13 @@ class Less_Parser
 	 *
 	 * @return mixed
 	 */
-	public function NewObj($class, array $args = [])
+	public function NewObj($class, $args = [])
 	{
+		if (!is_array($args))
+		{
+			$args = [$args];
+		}
+
 		$obj = new $class(...$args);
 
 		if ($this->CacheEnabled())
