@@ -1906,6 +1906,7 @@ class Less_Parser{
 
 	private function parseAttribute(){
 
+		$op = null;
 		$val = null;
 
 		if( !$this->MatchChar('[') ){
@@ -1917,14 +1918,15 @@ class Less_Parser{
 			$key = $this->expect('/\\G(?:[_A-Za-z0-9-\*]*\|)?(?:[_A-Za-z0-9-]|\\\\.)+/');
 		}
 
-		$op = $this->MatchReg('/\\G[|~*$^]?=/');
-		if( $op ){
+		$match = $this->MatchReg('/\\G[|~*$^]?=/');
+		if( $match ){
+			$op = $match[0];
 			$val = $this->match( array('parseEntitiesQuoted','/\\G[0-9]+%/','/\\G[\w-]+/','parseEntitiesVariableCurly') );
 		}
 
 		$this->expectChar(']');
 
-		return $this->NewObj3('Less_Tree_Attribute',array( $key, $op[0], $val));
+		return $this->NewObj3('Less_Tree_Attribute',array( $key, $op, $val));
 	}
 
 	//
