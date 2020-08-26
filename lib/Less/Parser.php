@@ -812,7 +812,7 @@ class Less_Parser{
 	 * @param array $toks
 	 * @return array
 	 */
-	private function match($toks){
+	private function parserMatch($toks){
 
 		// The match is confirmed, add the match length to `this::pos`,
 		// and consume any extra white-space characters (' ' || '\n')
@@ -883,7 +883,7 @@ class Less_Parser{
 
 
 	/**
-	 * Same as match(), but don't change the state of the parser,
+	 * Same as parserMatch(), but don't change the state of the parser,
 	 * just return the match.
 	 *
 	 * @param string $tok
@@ -924,7 +924,7 @@ class Less_Parser{
 	 * @param string|null $msg
 	 */
 	public function expect($tok, $msg = NULL) {
-		$result = $this->match( array($tok) );
+		$result = $this->parserMatch( array($tok) );
 		if (!$result) {
 			$this->Error( $msg	? "Expected '" . $tok . "' got '" . $this->input[$this->pos] . "'" : $msg );
 		} else {
@@ -1275,7 +1275,7 @@ class Less_Parser{
 			return;
 		}
 
-		$value = $this->match( array('parseEntitiesQuoted','parseEntitiesVariable','/\\Gdata\:.*?[^\)]+/','/\\G(?:(?:\\\\[\(\)\'"])|[^\(\)\'"])+/') );
+		$value = $this->parserMatch( array('parseEntitiesQuoted','parseEntitiesVariable','/\\Gdata\:.*?[^\)]+/','/\\G(?:(?:\\\\[\(\)\'"])|[^\(\)\'"])+/') );
 		if( !$value ){
 			$value = '';
 		}
@@ -1793,7 +1793,7 @@ class Less_Parser{
 		$c = $this->parseCombinator();
 		$index = $this->pos;
 
-		$e = $this->match( array('/\\G(?:\d+\.\d+|\d+)%/', '/\\G(?:[.#]?|:*)(?:[\w-]|[^\x00-\x9f]|\\\\(?:[A-Fa-f0-9]{1,6} ?|[^A-Fa-f0-9]))+/',
+		$e = $this->parserMatch( array('/\\G(?:\d+\.\d+|\d+)%/', '/\\G(?:[.#]?|:*)(?:[\w-]|[^\x00-\x9f]|\\\\(?:[A-Fa-f0-9]{1,6} ?|[^A-Fa-f0-9]))+/',
 			'#*', '#&', 'parseAttribute', '/\\G\([^()@]+\)/', '/\\G[\.#](?=@)/', 'parseEntitiesVariableCurly') );
 
 		if( is_null($e) ){
@@ -1921,7 +1921,7 @@ class Less_Parser{
 		$match = $this->MatchReg('/\\G[|~*$^]?=/');
 		if( $match ){
 			$op = $match[0];
-			$val = $this->match( array('parseEntitiesQuoted','/\\G[0-9]+%/','/\\G[\w-]+/','parseEntitiesVariableCurly') );
+			$val = $this->parserMatch( array('parseEntitiesQuoted','/\\G[0-9]+%/','/\\G[\w-]+/','parseEntitiesVariableCurly') );
 		}
 
 		$this->expectChar(']');
@@ -2450,7 +2450,7 @@ class Less_Parser{
 					$op = $op[0];
 				}else{
 					if( !$isSpaced ){
-						$op = $this->match(array('#+','#-'));
+						$op = $this->parserMatch(array('#+','#-'));
 					}
 					if( !$op ){
 						break;

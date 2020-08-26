@@ -70,7 +70,7 @@ class Less_Tree_Selector extends Less_Tree{
         return $sels;
 	}
 
-	public function match( $other ){
+	public function selectorMatch($other ){
 
 		if( !$other->_oelements || ($this->elements_len < $other->_oelements_len) ){
 			return 0;
